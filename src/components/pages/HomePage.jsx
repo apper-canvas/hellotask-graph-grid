@@ -1,16 +1,15 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
-import MainFeature from '../components/MainFeature';
-import GreetingHeader from '../components/GreetingHeader';
-import TaskInput from '../components/TaskInput';
-import TaskList from '../components/TaskList';
-import ProgressFooter from '../components/ProgressFooter';
-import NameSetup from '../components/NameSetup';
-import taskService from '../services/api/taskService';
-import userPreferencesService from '../services/api/userPreferencesService';
+import GreetingSection from '@/components/organisms/GreetingSection';
+import TaskForm from '@/components/organisms/TaskForm';
+import TaskListSection from '@/components/organisms/TaskListSection';
+import ProgressSummary from '@/components/organisms/ProgressSummary';
+import NameSetupCard from '@/components/organisms/NameSetupCard';
+import taskService from '@/services/api/taskService';
+import userPreferencesService from '@/services/api/userPreferencesService';
 
-const Home = () => {
+const HomePage = () => {
   const [tasks, setTasks] = useState([]);
   const [userPreferences, setUserPreferences] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -109,7 +108,7 @@ const Home = () => {
   }
 
   if (showNameSetup) {
-    return <NameSetup onSubmit={handleNameSubmit} />;
+    return <NameSetupCard onSubmit={handleNameSubmit} />;
   }
 
   const completedTasks = tasks.filter(task => task.completed);
@@ -126,23 +125,23 @@ const Home = () => {
           className="space-y-8"
         >
           {/* Greeting Header */}
-          <GreetingHeader 
+          <GreetingSection 
             userName={userPreferences?.name || 'Friend'} 
             onEditName={() => setShowNameSetup(true)}
           />
 
           {/* Task Input */}
-          <TaskInput onAddTask={handleAddTask} />
+          <TaskForm onAddTask={handleAddTask} />
 
           {/* Main Task List */}
-          <TaskList
+          <TaskListSection
             tasks={tasks}
             onToggleTask={handleToggleTask}
             onDeleteTask={handleDeleteTask}
           />
 
           {/* Progress Footer */}
-          <ProgressFooter
+          <ProgressSummary
             totalTasks={tasks.length}
             completedTasks={completedTasks.length}
             completionPercentage={completionPercentage}
@@ -153,4 +152,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;

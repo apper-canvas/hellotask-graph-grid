@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import Home from './pages/Home';
+import HomePage from '@/components/pages/HomePage';
+import NotFoundPage from '@/components/pages/NotFoundPage';
 import { routes, routeArray } from './config/routes';
 
 function App() {
@@ -8,9 +9,9 @@ function App() {
     <BrowserRouter>
       <div className="min-h-screen bg-gray-50">
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="*" element={<Home />} />
+<Route path="/" element={<HomePage />} />
+          <Route path="/home" element={<HomePage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
         
         <ToastContainer

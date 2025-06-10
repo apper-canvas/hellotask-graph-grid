@@ -1,7 +1,9 @@
+import React from 'react';
 import { motion } from 'framer-motion';
-import ApperIcon from './ApperIcon';
+import ApperIcon from '@/components/ApperIcon';
+import ProgressRing from '@/components/molecules/ProgressRing';
 
-const ProgressFooter = ({ totalTasks, completedTasks, completionPercentage }) => {
+const ProgressSummary = ({ totalTasks, completedTasks, completionPercentage }) => {
   if (totalTasks === 0) return null;
 
   const getMotivationalMessage = () => {
@@ -35,62 +37,7 @@ const ProgressFooter = ({ totalTasks, completedTasks, completionPercentage }) =>
           </p>
         </div>
         
-        <div className="relative">
-          {/* Progress Ring */}
-          <motion.svg
-            width="80"
-            height="80"
-            className="transform -rotate-90"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.2, type: "spring" }}
-          >
-            {/* Background circle */}
-            <circle
-              cx="40"
-              cy="40"
-              r="32"
-              stroke="#f3f4f6"
-              strokeWidth="8"
-              fill="none"
-            />
-            {/* Progress circle */}
-            <motion.circle
-              cx="40"
-              cy="40"
-              r="32"
-              stroke="url(#gradient)"
-              strokeWidth="8"
-              fill="none"
-              strokeLinecap="round"
-              strokeDasharray={201.06} // 2 * π * 32
-              initial={{ strokeDashoffset: 201.06 }}
-              animate={{ 
-                strokeDashoffset: 201.06 - (201.06 * completionPercentage) / 100 
-              }}
-              transition={{ duration: 1, ease: "easeOut" }}
-            />
-            
-            <defs>
-              <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#FF6B6B" />
-                <stop offset="100%" stopColor="#4ECDC4" />
-              </linearGradient>
-            </defs>
-          </motion.svg>
-          
-          {/* Percentage Text */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <motion.span
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.8 }}
-              className="text-xl font-bold gradient-text"
-            >
-              {completionPercentage}%
-            </motion.span>
-          </div>
-        </div>
+        <ProgressRing percentage={completionPercentage} />
       </div>
 
       {/* Motivational Message */}
@@ -123,4 +70,4 @@ const ProgressFooter = ({ totalTasks, completedTasks, completionPercentage }) =>
   );
 };
 
-export default ProgressFooter;
+export default ProgressSummary;

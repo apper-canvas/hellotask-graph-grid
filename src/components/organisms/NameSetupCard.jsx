@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import ApperIcon from './ApperIcon';
+import ApperIcon from '@/components/ApperIcon';
+import Button from '@/components/atoms/Button';
+import Input from '@/components/atoms/Input';
+import FormField from '@/components/molecules/FormField';
 
-const NameSetup = ({ onSubmit }) => {
+const NameSetupCard = ({ onSubmit }) => {
   const [name, setName] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -50,26 +53,18 @@ const NameSetup = ({ onSubmit }) => {
         </motion.p>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.4 }}
-          >
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Your Name
-            </label>
-            <input
+          <FormField label="Your Name" delay={0.4}>
+            <Input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Enter your name"
-              className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-gray-800 placeholder-gray-400"
               disabled={isSubmitting}
               autoFocus
             />
-          </motion.div>
+          </FormField>
 
-          <motion.button
+          <Button
             type="submit"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -77,7 +72,7 @@ const NameSetup = ({ onSubmit }) => {
             whileHover={{ scale: 1.02, brightness: 1.1 }}
             whileTap={{ scale: 0.98 }}
             disabled={!name.trim() || isSubmitting}
-            className="w-full py-3 bg-gradient-to-r from-primary to-secondary text-white font-medium rounded-lg shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full py-3 bg-gradient-to-r from-primary to-secondary text-white font-medium rounded-lg shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSubmitting ? (
               <div className="flex items-center justify-center gap-2">
@@ -87,11 +82,11 @@ const NameSetup = ({ onSubmit }) => {
             ) : (
               "Let's Get Started! 🚀"
             )}
-          </motion.button>
+          </Button>
         </form>
       </motion.div>
     </div>
   );
 };
 
-export default NameSetup;
+export default NameSetupCard;

@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import ApperIcon from './ApperIcon';
+import ApperIcon from '@/components/ApperIcon';
+import Button from '@/components/atoms/Button';
 
-const GreetingHeader = ({ userName, onEditName }) => {
+const GreetingSection = ({ userName, onEditName }) => {
   const [greeting, setGreeting] = useState('');
   const [timeOfDay, setTimeOfDay] = useState('');
 
@@ -86,17 +87,17 @@ const GreetingHeader = ({ userName, onEditName }) => {
         {getMotivationalMessage()}
       </motion.p>
 
-      <motion.button
+      <Button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={onEditName}
-        className="inline-flex items-center gap-2 px-4 py-2 text-sm text-gray-500 hover:text-primary transition-colors"
+        className="inline-flex items-center gap-2 px-4 py-2 text-sm text-gray-500 hover:text-primary transition-colors bg-transparent shadow-none"
       >
         <ApperIcon name="Edit2" size={16} />
         Change name
-      </motion.button>
+      </Button>
     </motion.div>
   );
 };
 
-export default GreetingHeader;
+export default GreetingSection;

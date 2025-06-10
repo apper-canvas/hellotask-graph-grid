@@ -1,8 +1,11 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import ApperIcon from './ApperIcon';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import ApperIcon from '@/components/ApperIcon';
+import Input from '@/components/atoms/Input';
+import Textarea from '@/components/atoms/Textarea';
+import Button from '@/components/atoms/Button';
 
-const TaskInput = ({ onAddTask }) => {
+const TaskForm = ({ onAddTask }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [showDescription, setShowDescription] = useState(false);
@@ -39,12 +42,11 @@ const TaskInput = ({ onAddTask }) => {
     >
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="relative">
-          <input
+          <Input
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="What would you like to accomplish?"
-            className="w-full px-4 py-3 pr-12 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-gray-800 placeholder-gray-400"
             disabled={isSubmitting}
           />
           <ApperIcon 
@@ -53,42 +55,43 @@ const TaskInput = ({ onAddTask }) => {
           />
         </div>
 
-        {showDescription && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="overflow-hidden"
-          >
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="Add some details (optional)"
-              className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-gray-800 placeholder-gray-400 resize-none"
-              rows={3}
-              disabled={isSubmitting}
-            />
-          </motion.div>
-        )}
+        <AnimatePresence>
+          {showDescription && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="overflow-hidden"
+            >
+              <Textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Add some details (optional)"
+                rows={3}
+                disabled={isSubmitting}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <div className="flex items-center justify-between">
-          <motion.button
+          <Button
             type="button"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => setShowDescription(!showDescription)}
-            className="inline-flex items-center gap-2 px-3 py-2 text-sm text-gray-500 hover:text-primary transition-colors"
+            className="inline-flex items-center gap-2 px-3 py-2 text-sm text-gray-500 hover:text-primary bg-transparent shadow-none"
           >
             <ApperIcon name={showDescription ? "ChevronUp" : "FileText"} size={16} />
             {showDescription ? "Hide details" : "Add details"}
-          </motion.button>
+          </Button>
 
-          <motion.button
+          <Button
             type="submit"
             whileHover={{ scale: 1.05, brightness: 1.1 }}
             whileTap={{ scale: 0.95 }}
             disabled={!title.trim() || isSubmitting}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary to-secondary text-white font-medium rounded-lg shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary to-secondary text-white font-medium rounded-lg shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSubmitting ? (
               <>
@@ -101,11 +104,11 @@ const TaskInput = ({ onAddTask }) => {
                 Add Task
               </>
             )}
-          </motion.button>
+          </Button>
         </div>
       </form>
     </motion.div>
   );
 };
 
-export default TaskInput;
+export default TaskForm;

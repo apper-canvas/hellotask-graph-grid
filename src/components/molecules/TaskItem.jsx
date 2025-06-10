@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import ApperIcon from './ApperIcon';
+import ApperIcon from '@/components/ApperIcon';
+import Button from '@/components/atoms/Button';
 
 const TaskItem = ({ task, index, onToggle, onDelete }) => {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -31,11 +32,11 @@ const TaskItem = ({ task, index, onToggle, onDelete }) => {
     >
       <div className="flex items-start gap-4 p-6">
         {/* Checkbox */}
-        <motion.button
+        <Button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={handleToggle}
-          className="flex-shrink-0 mt-1"
+          className="flex-shrink-0 mt-1 p-0 bg-transparent hover:bg-transparent shadow-none"
         >
           <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
             task.completed
@@ -52,7 +53,7 @@ const TaskItem = ({ task, index, onToggle, onDelete }) => {
               </motion.div>
             )}
           </div>
-        </motion.button>
+        </Button>
 
         {/* Task Content */}
         <div className="flex-1 min-w-0">
@@ -90,21 +91,21 @@ const TaskItem = ({ task, index, onToggle, onDelete }) => {
         </div>
 
         {/* Delete Button */}
-        <motion.button
+        <Button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={handleDelete}
-          className={`flex-shrink-0 p-2 rounded-lg transition-all opacity-0 group-hover:opacity-100 ${
-            showDeleteConfirm
+          className={`flex-shrink-0 p-2 rounded-lg transition-all opacity-0 group-hover:opacity-100 bg-transparent shadow-none
+            ${showDeleteConfirm
               ? 'bg-red-100 text-red-600'
               : 'text-gray-400 hover:text-red-500 hover:bg-red-50'
-          }`}
+            }`}
         >
           <ApperIcon 
             name={showDeleteConfirm ? "AlertCircle" : "Trash2"} 
             size={16} 
           />
-        </motion.button>
+        </Button>
       </div>
 
       {/* Delete Confirmation */}
@@ -119,12 +120,12 @@ const TaskItem = ({ task, index, onToggle, onDelete }) => {
             <span className="text-red-700">
               Click delete again to confirm
             </span>
-            <button
+            <Button
               onClick={() => setShowDeleteConfirm(false)}
-              className="text-red-500 hover:text-red-700"
+              className="text-red-500 hover:text-red-700 p-0 bg-transparent hover:bg-transparent shadow-none"
             >
               Cancel
-            </button>
+            </Button>
           </div>
         </motion.div>
       )}

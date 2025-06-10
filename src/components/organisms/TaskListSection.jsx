@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import TaskItem from './TaskItem';
-import ApperIcon from './ApperIcon';
+import TaskItem from '@/components/molecules/TaskItem';
+import ApperIcon from '@/components/ApperIcon';
+import FilterTabs from '@/components/molecules/FilterTabs';
 
-const TaskList = ({ tasks, onToggleTask, onDeleteTask }) => {
+const TaskListSection = ({ tasks, onToggleTask, onDeleteTask }) => {
   const [filter, setFilter] = useState('all'); // all, active, completed
 
   const incompleteTasks = tasks.filter(task => !task.completed);
@@ -60,27 +61,15 @@ const TaskList = ({ tasks, onToggleTask, onDeleteTask }) => {
     >
       {/* Filter Tabs */}
       <div className="border-b border-gray-100 bg-gray-50 px-6 py-4">
-        <div className="flex gap-1">
-          {[
+        <FilterTabs 
+          tabs={[
             { key: 'all', label: 'All', count: tasks.length },
             { key: 'active', label: 'Active', count: incompleteTasks.length },
             { key: 'completed', label: 'Completed', count: completedTasks.length }
-          ].map((tab) => (
-            <motion.button
-              key={tab.key}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => setFilter(tab.key)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                filter === tab.key
-                  ? 'bg-white text-primary shadow-sm border border-gray-200'
-                  : 'text-gray-600 hover:text-gray-800 hover:bg-white/50'
-              }`}
-            >
-              {tab.label} ({tab.count})
-            </motion.button>
-          ))}
-        </div>
+          ]}
+          currentFilter={filter}
+          onFilterChange={setFilter}
+        />
       </div>
 
       {/* Task List */}
@@ -113,4 +102,4 @@ const TaskList = ({ tasks, onToggleTask, onDeleteTask }) => {
   );
 };
 
-export default TaskList;
+export default TaskListSection;
