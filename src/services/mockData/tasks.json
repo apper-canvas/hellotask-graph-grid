@@ -1,0 +1,37 @@
+[
+  {
+    "id": "1",
+    "title": "Review morning emails",
+    "description": "Go through inbox and respond to urgent messages",
+    "completed": false,
+    "createdAt": "2024-01-15T08:00:00.000Z"
+  },
+  {
+    "id": "2",
+    "title": "Prepare presentation for team meeting",
+    "description": "Create slides for quarterly review and project updates",
+    "completed": false,
+    "createdAt": "2024-01-15T08:15:00.000Z"
+  },
+  {
+    "id": "3",
+    "title": "Call dentist to schedule appointment",
+    "description": "",
+    "completed": true,
+    "createdAt": "2024-01-15T07:30:00.000Z"
+  },
+  {
+    "id": "4",
+    "title": "Buy groceries for the week",
+    "description": "Milk, bread, fruits, vegetables, and protein sources",
+    "completed": false,
+    "createdAt": "2024-01-15T08:30:00.000Z"
+  },
+  {
+    "id": "5",
+    "title": "Exercise for 30 minutes",
+    "description": "Morning jog or yoga session to start the day energized",
+    "completed": true,
+    "createdAt": "2024-01-15T06:45:00.000Z"
+  }
+]
